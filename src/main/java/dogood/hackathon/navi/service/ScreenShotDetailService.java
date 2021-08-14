@@ -14,10 +14,13 @@ import org.springframework.stereotype.Service;
 
 import dogood.hackathon.navi.domain.entity.ScreenShotCommentEntity;
 import dogood.hackathon.navi.domain.entity.ScreenShotEntity;
+import dogood.hackathon.navi.domain.entity.ScreenShotImgEntity;
 import dogood.hackathon.navi.domain.repository.ScreenShotCommentRepository;
+import dogood.hackathon.navi.domain.repository.ScreenShotImgRepository;
 import dogood.hackathon.navi.domain.repository.ScreenShotRepository;
 import dogood.hackathon.navi.dto.ScreenShotCommentDto;
 import dogood.hackathon.navi.dto.ScreenShotDto;
+import dogood.hackathon.navi.dto.ScreenShotImgDto;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -26,6 +29,7 @@ public class ScreenShotDetailService {
 
 	private ScreenShotRepository screenShotRepository;
 	private ScreenShotCommentRepository screenShotCommentRepository;
+	private ScreenShotImgRepository screenShotImgRepository;
 	
 	@Transactional
 	public ScreenShotDto getScreenShotDetail(ScreenShotDto dto) {
@@ -96,5 +100,24 @@ public class ScreenShotDetailService {
 		}
 		
 		return list;
+	}
+	
+	@Transactional
+	public List<ScreenShotImgDto> listScreenShotForToons(ScreenShotDto dto){
+		List<ScreenShotImgDto> returnList = new ArrayList<>();
+		List<ScreenShotImgEntity> list = screenShotImgRepository.getScreenShotImgEntityByScreenShotIdx(dto.getScreenShotIdx());
+		
+		list.forEach(img ->{
+			ScreenShotImgDto imgdto = ScreenShotImgDto.builder()
+					.idx(img.getIdx())
+					.screenShotIdx(img.getScreenShotIdx())
+					.img_path(img.getImg_path())
+					.smi(img.getSmi())
+					.build();
+			
+			returnList.add(imgdto);
+		});
+		
+		return returnList;
 	}
 }
