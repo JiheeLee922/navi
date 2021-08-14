@@ -35,10 +35,4 @@ public class SampleController {
 		sampleService.savePost(sampleDto);
 		return "redirect:/"; 
 	}
-
-	@GetMapping("/test")
-	@CrossOrigin("*")
-	public List<MainRecommandContentsEntity> test(){
-		return mainService.list();
-	}
 }
