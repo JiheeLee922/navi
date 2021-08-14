@@ -6,6 +6,7 @@ spring:
     username: maserati_admin
     password: msa0516#$
     
+    
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
