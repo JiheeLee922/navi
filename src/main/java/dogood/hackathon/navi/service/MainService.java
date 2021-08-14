@@ -1,18 +1,9 @@
 package dogood.hackathon.navi.service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
-
+import dogood.hackathon.navi.domain.entity.GameInfoEntity;
 import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
-import dogood.hackathon.navi.domain.entity.ScreenShotEntity;
-import dogood.hackathon.navi.domain.repository.MainRcomContentsRepository;
-import dogood.hackathon.navi.domain.repository.ScreenShotRepository;
-import dogood.hackathon.navi.dto.ScreenShotDto;
+import dogood.hackathon.navi.domain.repository.GameInfoRepository;
+import dogood.hackathon.navi.domain.repository.MainRepository;
 import lombok.AllArgsConstructor;
 
 import javax.transaction.Transactional;
@@ -22,19 +13,24 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class MainService {
-    private MainRcomContentsRepository mainRcomContentsRepository;
-    private ScreenShotRepository screenShotRepository;
-    
+    private MainRepository mainRepository;
+
+    private GameInfoRepository gameInfoRepository;
 
     @Transactional
-    public MainRecommandContentsEntity getMain(){
-        Timestamp today = new Timestamp(System.currentTimeMillis());
-        return mainRcomContentsRepository.findByStrtDtmLessThanEqualAndEndDtmGreaterThanEqualOrderByRcomIdxDesc(today,today);
+    public MainRecommandContentsEntity getMainContents(){
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        return mainRepository.getMainContents(currentTime);
     }
 
     @Transactional
-    public List<MainRecommandContentsEntity> list(){
-        return mainRcomContentsRepository.list();
+    public List<String> getMainTag(Long rcomIdx){
+        return mainRepository.getMainTag(rcomIdx);
+    }
+
+    @Transactional
+    public List<GameInfoEntity> getMainGameList(Long rcomIdx){
+        return gameInfoRepository.getMainGameList(rcomIdx);
     }
     
     @Transactional

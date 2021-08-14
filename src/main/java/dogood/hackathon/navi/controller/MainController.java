@@ -1,19 +1,17 @@
 package dogood.hackathon.navi.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import dogood.hackathon.navi.domain.entity.GameInfoEntity;
+import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
+import dogood.hackathon.navi.service.MainService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
-import dogood.hackathon.navi.dto.ScreenShotDto;
-import dogood.hackathon.navi.service.MainService;
-import lombok.AllArgsConstructor;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -23,21 +21,28 @@ public class MainController {
 
     @GetMapping("/main")
     @CrossOrigin("*")
-    public MainRecommandContentsEntity main(){
-        return mainService.getMain();
+    public ResponseEntity main(){
+        String resultCd = "S";
+        HashMap<String,Object> body = new HashMap<String,Object>();
+
+        try{
+            //메인 게임
+            MainRecommandContentsEntity mainContents = mainService.getMainContents();
+            //태그 리스트
+            List<String> tag = mainService.getMainTag(mainContents.getRcomIdx());
+            //게임 리스트
+            List<GameInfoEntity> list = mainService.getMainGameList(mainContents.getRcomIdx());
+            body.put("resultCd",resultCd);
+            body.put("main",mainContents);
+            body.put("tag",tag);
+            body.put("list",list);
+            return new ResponseEntity<>(body, HttpStatus.OK);
+        }catch(Exception e){
+            resultCd = "F";
+            body.put("title","보다 나은 서비스를 위해 준비중입니다.");
+            body.put("resultCd",resultCd);
+            return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        }
     }
 
-    
-    @GetMapping("/main/rnbRanking")
-    @CrossOrigin("*")
-    public List<ScreenShotDto> listRnbRanking(){
-    	
-    	return mainService.listRnbRanking();
-    }
-
-    @GetMapping("/test")
-    @CrossOrigin("*")
-    public List<MainRecommandContentsEntity> test(){
-        return mainService.list();
-    }
 }
