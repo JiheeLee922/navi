@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="GAME_INFO")
+@Table(name="game_info")
 public class GameInfoEntity extends TimeEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

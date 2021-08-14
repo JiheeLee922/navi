@@ -1,6 +1,7 @@
 package dogood.hackathon.navi.service;
 
 import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
+import dogood.hackathon.navi.domain.entity.UserInfoEntity;
 import dogood.hackathon.navi.domain.repository.MainRcomContentsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
