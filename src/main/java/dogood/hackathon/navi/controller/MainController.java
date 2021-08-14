@@ -1,11 +1,16 @@
 package dogood.hackathon.navi.controller;
 
-import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
-import dogood.hackathon.navi.service.MainService;
-import lombok.AllArgsConstructor;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
+import dogood.hackathon.navi.dto.ScreenShotDto;
+import dogood.hackathon.navi.service.MainService;
+import lombok.AllArgsConstructor;
+
+@RestController(value = "main")
 @AllArgsConstructor
 public class MainController {
 
@@ -13,5 +18,11 @@ public class MainController {
 
     public MainRecommandContentsEntity main(){
         return mainService.getMain();
+    }
+    
+    @GetMapping("rnbRanking")
+    public List<ScreenShotDto> listRnbRanking(){
+    	
+    	return mainService.listRnbRanking();
     }
 }
