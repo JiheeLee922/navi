@@ -5,7 +5,6 @@ import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
 import dogood.hackathon.navi.domain.repository.GameInfoRepository;
 import dogood.hackathon.navi.domain.repository.MainRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
@@ -32,6 +31,26 @@ public class MainService {
     @Transactional
     public List<GameInfoEntity> getMainGameList(Long rcomIdx){
         return gameInfoRepository.getMainGameList(rcomIdx);
+    }
+    
+    @Transactional
+    public List<ScreenShotDto> listRnbRanking(){
+    	
+    	List<ScreenShotEntity> testEntites = screenShotRepository.rnbList();
+		List<ScreenShotDto> testDtoList = new ArrayList<>();
+		
+		testEntites.forEach(testEntity ->{
+			ScreenShotDto testDto = ScreenShotDto.builder()
+					.screenShotIdx(testEntity.getScreen_shot_idx())
+					.thumbnailPath(testEntity.getThumbnail_path())
+					.position(testEntity.getPosition())
+					.gameNm(testEntity.getGame_nm())
+					.build(); 
+			
+			testDtoList.add(testDto);
+			
+		});
+    	return testDtoList;
     }
 
 }
