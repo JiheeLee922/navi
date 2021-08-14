@@ -1,7 +1,7 @@
-package dogood.hackathon.navi.sample.controller;
+package dogood.hackathon.navi.controller;
 
-import dogood.hackathon.navi.sample.dto.SampleDto;
-import dogood.hackathon.navi.sample.service.SampleService;
+import dogood.hackathon.navi.dto.SampleDto;
+import dogood.hackathon.navi.service.SampleService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

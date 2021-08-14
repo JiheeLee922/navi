@@ -1,8 +1,8 @@
-package dogood.hackathon.navi.sample.dto;
+package dogood.hackathon.navi.dto;
 
 import java.time.LocalDateTime;
 
-import dogood.hackathon.navi.sample.domain.entity.SampleEntity;
+import dogood.hackathon.navi.domain.entity.SampleEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package dogood.hackathon.navi.sample.domain.entity;
+package dogood.hackathon.navi.domain.entity;
 
 import java.time.LocalDateTime;
 

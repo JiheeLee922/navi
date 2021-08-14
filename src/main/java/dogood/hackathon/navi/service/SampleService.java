@@ -1,7 +1,7 @@
-package dogood.hackathon.navi.sample.service;
+package dogood.hackathon.navi.service;
 
-import dogood.hackathon.navi.sample.domain.repository.SampleRepository;
-import dogood.hackathon.navi.sample.dto.SampleDto;
+import dogood.hackathon.navi.domain.repository.SampleRepository;
+import dogood.hackathon.navi.dto.SampleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package dogood.hackathon.navi.sample.domain.entity;
+package dogood.hackathon.navi.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
