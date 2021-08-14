@@ -40,11 +40,21 @@ public class ScreenShotEntity{
     
     @Column
     private String position;
+
+    @Column
+    private String title;
+    
+    @Column
+    private String description;
     
     @Column
     private Timestamp regist_dtm;
     
     private String game_nm;
+    
+    private String corp_nm;
+    
+    private String tag;
     
 	/*
 	 * @OneToMany(mappedBy="screen_shot_idx") private List<ScreenShotLikeEntity>
