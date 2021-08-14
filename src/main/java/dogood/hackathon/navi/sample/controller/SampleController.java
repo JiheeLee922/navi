@@ -1,17 +1,20 @@
 package dogood.hackathon.navi.sample.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import dogood.hackathon.navi.sample.dto.SampleDto;
+import dogood.hackathon.navi.sample.service.SampleService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
 public class SampleController {
-	
+
+	@Autowired
 	private SampleService sampleService;
-	
+
 	@GetMapping("/list")
 	public String list() {
 		
