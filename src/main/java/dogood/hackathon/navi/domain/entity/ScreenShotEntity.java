@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="SCREEN_SHOT")
+@Table(name="screen_shot")
 public class ScreenShotEntity{
 	@Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

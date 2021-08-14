@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dogood.hackathon.navi.dto.ScreenShotDto;
 import dogood.hackathon.navi.dto.ScreenShotImgDto;
-import dogood.hackathon.navi.service.ScreenShotDetailService;
+import dogood.hackathon.navi.service.ScreenShotService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ScreenShotDetailController {
 
-	private ScreenShotDetailService screenShotDetailService;
+	private ScreenShotService screenShotDetailService;
 	
 	@GetMapping("/getInfo")
 	@CrossOrigin("*")
