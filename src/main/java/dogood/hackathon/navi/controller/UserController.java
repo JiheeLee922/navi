@@ -1,6 +1,7 @@
 package dogood.hackathon.navi.controller;
 
 import dogood.hackathon.navi.domain.entity.UserInfoEntity;
+import dogood.hackathon.navi.dto.UserInfoDto;
 import dogood.hackathon.navi.service.UserService;
 import io.netty.util.internal.StringUtil;
 import lombok.AllArgsConstructor;
@@ -26,10 +27,12 @@ public class UserController {
 
     @CrossOrigin("*")
     @PostMapping(value="/join")
-    public ResponseEntity join(String loginId,String nickNm
-            ,@RequestParam(value="prflImgPath",required = false)String prflImgPath){
+    public ResponseEntity join(UserInfoDto dto){
         String resultMsg = "";
         Boolean isOk = true;
+        String loginId = dto.getLoginId();
+        String nickNm = dto.getNickNm();
+        String prflImgPath = dto.getPrflImgPath();
 
         log.info("### join start ###");
         log.info("### loginId : {} ###",loginId);
