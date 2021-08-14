@@ -40,15 +40,16 @@ public class MainService {
     @Transactional
     public List<ScreenShotDto> listRnbRanking(){
     	
-    	List<ScreenShotEntity> testEntites = screenShotRepository.findAll();
+    	List<ScreenShotEntity> testEntites = screenShotRepository.rnbList();
 		List<ScreenShotDto> testDtoList = new ArrayList<>();
 		
 		testEntites.forEach(testEntity ->{
 			ScreenShotDto testDto = ScreenShotDto.builder()
 					.screenShotIdx(testEntity.getScreen_shot_idx())
-					.gameIdx(testEntity.getGame_idx())
-					.userIdx(testEntity.getUser_idx())
-					.build();
+					.thumbnailPath(testEntity.getThumbnail_path())
+					.position(testEntity.getPosition())
+					.gameNm(testEntity.getGame_nm())
+					.build(); 
 			
 			testDtoList.add(testDto);
 			

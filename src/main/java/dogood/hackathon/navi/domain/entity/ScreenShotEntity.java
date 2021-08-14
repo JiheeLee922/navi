@@ -44,19 +44,23 @@ public class ScreenShotEntity{
     @Column
     private Timestamp regist_dtm;
     
-    @OneToMany(mappedBy="screen_shot_idx")
-    private List<ScreenShotLikeEntity> likes;
+    private String game_nm;
+    
+	/*
+	 * @OneToMany(mappedBy="screen_shot_idx") private List<ScreenShotLikeEntity>
+	 * likes;
+	 */
     
     
 
     @Builder
-    public ScreenShotEntity(Long screen_shot_idx,Long game_idx,List<ScreenShotLikeEntity> likes, Long user_idx,String content, Date journey_strt_dtm,  String thumbnail_path, String position) {
+    public ScreenShotEntity(Long screen_shot_idx,Long game_idx, Long user_idx,String content, Date journey_strt_dtm,  String thumbnail_path, String position) {
         this.screen_shot_idx = screen_shot_idx;
         this.game_idx = game_idx;
         this.user_idx = user_idx;
         this.journey_strt_dtm = journey_strt_dtm;
         this.thumbnail_path = thumbnail_path;
         this.position = position;
-        this.likes = likes;
+        //this.likes = likes;
     }
 }
