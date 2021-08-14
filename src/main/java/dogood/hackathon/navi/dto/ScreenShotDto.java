@@ -25,6 +25,7 @@ public class ScreenShotDto {
 	private String thumbnailPath;
 	private String position;
 	private Timestamp registDtm;
+	private String gameNm;
     
     public ScreenShotEntity toEntity() {
     	ScreenShotEntity screenShotEntity = ScreenShotEntity.builder()
@@ -42,7 +43,7 @@ public class ScreenShotDto {
     
     @Builder
 	public ScreenShotDto(Long screenShotIdx, Long gameIdx, Long userIdx, Date journeyStrtDtm, String thumbnailPath,
-			String position, Timestamp registDtm) {
+			String position, Timestamp registDtm, String gameNm) {
 		this.screenShotIdx = screenShotIdx;
 		this.gameIdx = gameIdx;
 		this.userIdx = userIdx;
@@ -50,5 +51,6 @@ public class ScreenShotDto {
 		this.thumbnailPath = thumbnailPath;
 		this.position = position;
 		this.registDtm = registDtm;
+		this.gameNm = gameNm;
 	}
 }

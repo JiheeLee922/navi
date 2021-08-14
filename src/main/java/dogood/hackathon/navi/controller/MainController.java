@@ -28,7 +28,8 @@ public class MainController {
     }
 
     
-    @GetMapping("rnbRanking")
+    @GetMapping("/main/rnbRanking")
+    @CrossOrigin("*")
     public List<ScreenShotDto> listRnbRanking(){
     	
     	return mainService.listRnbRanking();
