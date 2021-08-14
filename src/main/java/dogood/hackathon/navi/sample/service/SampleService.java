@@ -1,18 +1,15 @@
 package dogood.hackathon.navi.sample.service;
 
-import javax.transaction.Transactional;
-
 import dogood.hackathon.navi.sample.domain.repository.SampleRepository;
 import dogood.hackathon.navi.sample.dto.SampleDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor
 public class SampleService {
-	@Autowired
 	private SampleRepository sampleRepository;
 	
 	@Transactional
