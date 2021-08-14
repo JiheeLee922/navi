@@ -22,10 +22,9 @@ public class ScreenShotLikeEntity extends TimeEntity{
 	@Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long like_idx;
-
-	@ManyToOne
-	@JoinColumn(name="screen_shot_idx")
-    private ScreenShotEntity screen_shot_idx;
+	
+	@Column
+    private Long screen_shot_idx;
 
     @Column
     private String user_idx;

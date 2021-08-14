@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ScreenShotDetailService {
+public class ScreenShotService {
 
 	private ScreenShotRepository screenShotRepository;
 	private ScreenShotCommentRepository screenShotCommentRepository;
@@ -119,5 +119,29 @@ public class ScreenShotDetailService {
 		});
 		
 		return returnList;
+	}
+	
+	
+	@Transactional
+	public List<Map<String,Object>> listScreenShot(String search , String searchWord){
+		
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		
+		Object[] result = screenShotRepository.listScreenShotSearch( search, searchWord  );
+		
+		for (int i = 0; i < result.length; i++) {
+			Map<String,Object> map =new HashMap<>();
+			
+			Object[] a = (Object[]) result[i];
+			map.put("screenShotIdx", a[0]);
+			map.put("thumbnailScreenShot", a[1]);
+			map.put("gameNm", a[2]);
+			map.put("thumbnailGame", a[3]);
+			
+			list.add(map);
+		}
+		
+		return list;
 	}
 }
