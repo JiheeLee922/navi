@@ -6,14 +6,15 @@ import dogood.hackathon.navi.service.UserService;
 import io.netty.util.internal.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import java.util.Map;
-
-import org.springframework.http.HttpRequest;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -61,10 +62,15 @@ public class UserController {
 
     @CrossOrigin("*")
     @PostMapping(value="/login")
-    public ResponseEntity login(String loginId){
+    public ResponseEntity login(String loginId, HttpServletRequest request){
         try{
             loginId = Optional.ofNullable(loginId).orElseThrow(()->new Exception("아이디를 확인해주세요."));
             UserInfoEntity result = userService.login(loginId);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("loginId",loginId);
+            session.setAttribute("nickNm",result.getNickNm());
+
             return new ResponseEntity<UserInfoEntity>(result,HttpStatus.OK);
         }catch(Exception e){
             HashMap<String,String> body = new HashMap<String,String>();
