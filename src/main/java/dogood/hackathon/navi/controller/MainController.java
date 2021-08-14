@@ -1,7 +1,12 @@
 package dogood.hackathon.navi.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,11 +14,6 @@ import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
 import dogood.hackathon.navi.dto.ScreenShotDto;
 import dogood.hackathon.navi.service.MainService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
