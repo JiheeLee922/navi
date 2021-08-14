@@ -1,0 +1,35 @@
+## DB Connection 정보 ##
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://navi.cju1qn1vahyl.ap-northeast-2.rds.amazonaws.com:3306/navi?serverTimezone=UTC&characterEncoding=UTF-8
+    username: maserati_was
+    password: msawas0516
+    
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: create
+      show-sql : true
+      
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE  
+
+
+
+## 부가 옵션 ##
+
+# JDBC 초기화 실패 및 Sql Exception 발생 시, 구동 할지 안할지
+# true 구동 / false 구동안함(=실패) , default = false
+# pring.datasource.continue-on-error=true              
