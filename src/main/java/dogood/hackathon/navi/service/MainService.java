@@ -15,6 +15,10 @@ import dogood.hackathon.navi.domain.repository.ScreenShotRepository;
 import dogood.hackathon.navi.dto.ScreenShotDto;
 import lombok.AllArgsConstructor;
 
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class MainService {
@@ -24,8 +28,13 @@ public class MainService {
 
     @Transactional
     public MainRecommandContentsEntity getMain(){
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        return mainRcomContentsRepository.findBy(currentTime);
+        Timestamp today = new Timestamp(System.currentTimeMillis());
+        return mainRcomContentsRepository.findByStrtDtmLessThanEqualAndEndDtmGreaterThanEqualOrderByRcomIdxDesc(today,today);
+    }
+
+    @Transactional
+    public List<MainRecommandContentsEntity> list(){
+        return mainRcomContentsRepository.list();
     }
     
     @Transactional
