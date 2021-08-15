@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dogood.hackathon.navi.dto.ScreenShotDto;
-import dogood.hackathon.navi.service.ScreenShotDetailService;
+import dogood.hackathon.navi.dto.ScreenShotImgDto;
+import dogood.hackathon.navi.service.ScreenShotService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ScreenShotDetailController {
 
-	private ScreenShotDetailService screenShotDetailService;
+	private ScreenShotService screenShotDetailService;
 	
 	@GetMapping("/getInfo")
 	@CrossOrigin("*")
@@ -34,5 +35,11 @@ public class ScreenShotDetailController {
 		 
 		map.put("recommend",  screenShotDetailService.listRecommendGame(shotInfo.getTag(), dto.getScreenShotIdx()));
 		return map;
+	}
+	
+	@GetMapping("/getToonsInfo")
+	@CrossOrigin("*")
+	public List<ScreenShotImgDto> listScreenShotForToons(ScreenShotDto dto){
+		return screenShotDetailService.listScreenShotForToons(dto);
 	}
 }

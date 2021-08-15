@@ -14,18 +14,22 @@ import org.springframework.stereotype.Service;
 
 import dogood.hackathon.navi.domain.entity.ScreenShotCommentEntity;
 import dogood.hackathon.navi.domain.entity.ScreenShotEntity;
+import dogood.hackathon.navi.domain.entity.ScreenShotImgEntity;
 import dogood.hackathon.navi.domain.repository.ScreenShotCommentRepository;
+import dogood.hackathon.navi.domain.repository.ScreenShotImgRepository;
 import dogood.hackathon.navi.domain.repository.ScreenShotRepository;
 import dogood.hackathon.navi.dto.ScreenShotCommentDto;
 import dogood.hackathon.navi.dto.ScreenShotDto;
+import dogood.hackathon.navi.dto.ScreenShotImgDto;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ScreenShotDetailService {
+public class ScreenShotService {
 
 	private ScreenShotRepository screenShotRepository;
 	private ScreenShotCommentRepository screenShotCommentRepository;
+	private ScreenShotImgRepository screenShotImgRepository;
 	
 	@Transactional
 	public ScreenShotDto getScreenShotDetail(ScreenShotDto dto) {
@@ -82,6 +86,49 @@ public class ScreenShotDetailService {
 		Object[] result = screenShotRepository.listRecommendGame(set, idx );
 		//SCREEN_SHOT_IDX  ,a.THUMBNAIL_PATH as Thumb_shot ,gi.GAME_NM ,gi.THUMBNAIL_PATH \r\n"
 
+		
+		for (int i = 0; i < result.length; i++) {
+			Map<String,Object> map =new HashMap<>();
+			
+			Object[] a = (Object[]) result[i];
+			map.put("screenShotIdx", a[0]);
+			map.put("thumbnailScreenShot", a[1]);
+			map.put("gameNm", a[2]);
+			map.put("thumbnailGame", a[3]);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	@Transactional
+	public List<ScreenShotImgDto> listScreenShotForToons(ScreenShotDto dto){
+		List<ScreenShotImgDto> returnList = new ArrayList<>();
+		List<ScreenShotImgEntity> list = screenShotImgRepository.getScreenShotImgEntityByScreenShotIdx(dto.getScreenShotIdx());
+		
+		list.forEach(img ->{
+			ScreenShotImgDto imgdto = ScreenShotImgDto.builder()
+					.idx(img.getIdx())
+					.screenShotIdx(img.getScreenShotIdx())
+					.img_path(img.getImg_path())
+					.smi(img.getSmi())
+					.build();
+			
+			returnList.add(imgdto);
+		});
+		
+		return returnList;
+	}
+	
+	
+	@Transactional
+	public List<Map<String,Object>> listScreenShot(String search , String searchWord){
+		
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		
+		Object[] result = screenShotRepository.listScreenShotSearch( search, searchWord  );
 		
 		for (int i = 0; i < result.length; i++) {
 			Map<String,Object> map =new HashMap<>();

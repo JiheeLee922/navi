@@ -34,7 +34,7 @@ public interface ScreenShotRepository extends JpaRepository<ScreenShotEntity, Lo
 	public ScreenShotEntity getScreenShotInfo(@Param("screenShotIdx") Long screenShotIdx);
 	
 	
-	@Query(value="select  SCREEN_SHOT_IDX  ,a.THUMBNAIL_PATH as Thumb_shot ,gi.GAME_NM ,gi.THUMBNAIL_PATH \r\n"
+	@Query(value="select  SCREEN_SHOT_IDX  ,a.THUMBNAIL_PATH as Thumb_shot ,gi.GAME_NM ,gi.THUMBNAIL_PATH  \r\n"
 			+ "from (\r\n"
 			+ "	SELECT  count(*) cnt,  ss.SCREEN_SHOT_IDX ,GAME_IDX ,THUMBNAIL_PATH \r\n"
 			+ "	from screen_shot ss \r\n"
@@ -52,6 +52,26 @@ public interface ScreenShotRepository extends JpaRepository<ScreenShotEntity, Lo
 			+ "where a.screen_shot_idx !=:screenShotIdx \r\n"
 			+ "order by cnt desc"
 			, nativeQuery=true)
-	public Object[] listRecommendGame(@Param("tag") Set<String> set, @Param("screenShotIdx") Long screenShotIdx);
+	public Object[] listRecommendGame( @Param("tag") Set<String> set, @Param("screenShotIdx") Long screenShotIdx);
 	
+	
+	
+	@Query(value="select ss.screen_shot_idx , ss.thumbnail_path , gi.game_nm ,\r\n"
+			+ "gi.THUMBNAIL_PATH as game_thumb \r\n"
+			+ "from screen_shot ss \r\n"
+			+ "inner join game_info gi \r\n"
+			+ "on ss.GAME_IDX  = gi.GAME_IDX \r\n"
+			+ "where 1=1\r\n"
+			+ " and(:#{#search != 'all'} = true or (    ss.SCREEN_SHOT_IDX  = (select screen_shot_idx from screen_shot_tag_mapping sstm  \r\n"
+			+ "																where sstm.TAG_IDX = (select tag_idx from tag where tag_nm = :searchWord ))\r\n"
+			+ "											or gi.GAME_NM like concat('%',:searchWord,'%')   \r\n"
+			+ "											or ss.POSITION like concat('%',:searchWord,'%')  \r\n"
+			+ "		))  \r\n"
+			+ " and(:#{#search != 'tag'} = true or (ss.SCREEN_SHOT_IDX  = (select screen_shot_idx from screen_shot_tag_mapping sstm\r\n"
+			+ "									where sstm.TAG_IDX = (select tag_idx from tag where tag_nm = :searchWord )))) \r\n"
+			+ " and(:#{#search != 'game'} = true or (gi.GAME_NM  like concat('%',:searchWord,'%') )) \r\n"
+			+ " and(:#{#search != 'position'} = true or (ss.POSITION  like concat('%',:searchWord,'%') )) \r\n"
+			+ "order by (select count(*) from screen_shot_like ssl2 where ssl2.screen_shot_idx = ss.screen_shot_idx )  desc "
+			,nativeQuery=true)
+	public Object[] listScreenShotSearch( @Param("search") String search, @Param("searchWord") String searchWord);
 }
