@@ -1,10 +1,7 @@
 package dogood.hackathon.navi.domain.entity;
 
 import com.sun.istack.Nullable;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -32,13 +29,18 @@ public class MainRecommandContentsEntity{
     @Column(name ="show_end_dtm", nullable = false)
     private Timestamp endDtm;
 
+    @Column(name ="thumbnail_path", nullable = false)
+    @Setter
+    private String thumbNail;
+
     @Builder
-    public MainRecommandContentsEntity(Long rcomIdx, String title, String desc, Timestamp strtDtm , Timestamp endDtm) {
+    public MainRecommandContentsEntity(Long rcomIdx, String title, String desc, Timestamp strtDtm , Timestamp endDtm,String thumbNail) {
         this.rcomIdx = rcomIdx;
         this.title = title;
         this.desc = desc;
         this.strtDtm = strtDtm;
         this.endDtm = endDtm;
+        this.thumbNail = thumbNail;
     }
 
 }

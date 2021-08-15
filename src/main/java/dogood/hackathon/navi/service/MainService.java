@@ -3,9 +3,11 @@ package dogood.hackathon.navi.service;
 import dogood.hackathon.navi.domain.entity.GameInfoEntity;
 import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
 import dogood.hackathon.navi.domain.entity.ScreenShotEntity;
+import dogood.hackathon.navi.domain.entity.UserInfoEntity;
 import dogood.hackathon.navi.domain.repository.GameInfoRepository;
 import dogood.hackathon.navi.domain.repository.MainRepository;
 import dogood.hackathon.navi.domain.repository.ScreenShotRepository;
+import dogood.hackathon.navi.domain.repository.UserInfoRepository;
 import dogood.hackathon.navi.dto.ScreenShotDto;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -30,6 +32,8 @@ public class MainService {
 
     private ScreenShotRepository screenShotRepository;
 
+    private UserInfoRepository userInfoRepository;
+
     @Transactional
     public MainRecommandContentsEntity getMainContents(){
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
@@ -44,6 +48,10 @@ public class MainService {
     @Transactional
     public List<GameInfoEntity> getMainGameList(Long rcomIdx) throws Exception{
         return gameInfoRepository.getMainGameList(rcomIdx);
+    }
+
+    public UserInfoEntity getUserProfile(String loginId){
+        return userInfoRepository.getUserInfoEntityByLoginId(loginId);
     }
     
     @Transactional
