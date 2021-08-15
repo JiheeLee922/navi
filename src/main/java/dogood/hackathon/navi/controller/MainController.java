@@ -2,6 +2,7 @@ package dogood.hackathon.navi.controller;
 
 import dogood.hackathon.navi.domain.entity.GameInfoEntity;
 import dogood.hackathon.navi.domain.entity.MainRecommandContentsEntity;
+import dogood.hackathon.navi.domain.entity.UserInfoEntity;
 import dogood.hackathon.navi.service.MainService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,12 @@ public class MainController {
             for(GameInfoEntity game : list){
                 game.setThumbNail(domain+game.getThumbNail());
             }
+
+            //유저 정보
+            UserInfoEntity user = mainService.getUserProfile("navi_id");
+            user.setPrflImgPath(domain + user.getPrflImgPath());
+
+            body.put("user",user);
             body.put("resultCd",resultCd);
             body.put("main",mainContents);
             body.put("tag",tag);
