@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class MainController {
 
     @GetMapping("/main")
     @CrossOrigin("*")
-    public ResponseEntity main(){
+    public ResponseEntity main(HttpServletRequest req){
         String resultCd = "S";
         HashMap<String,Object> body = new HashMap<String,Object>();
 
@@ -32,6 +33,10 @@ public class MainController {
             List<String> tag = mainService.getMainTag(mainContents.getRcomIdx());
             //게임 리스트
             List<GameInfoEntity> list = mainService.getMainGameList(mainContents.getRcomIdx());
+            for(GameInfoEntity game : list){
+                String domain = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
+                game.setThumbNail(domain+game.getThumbNail());
+            }
             body.put("resultCd",resultCd);
             body.put("main",mainContents);
             body.put("tag",tag);
