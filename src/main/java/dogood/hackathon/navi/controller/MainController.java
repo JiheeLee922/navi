@@ -25,16 +25,17 @@ public class MainController {
     public ResponseEntity main(HttpServletRequest req){
         String resultCd = "S";
         HashMap<String,Object> body = new HashMap<String,Object>();
+        String domain = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
 
         try{
             //메인 게임
             MainRecommandContentsEntity mainContents = mainService.getMainContents();
+            mainContents.setThumbNail(domain + mainContents.getThumbNail());
             //태그 리스트
             List<String> tag = mainService.getMainTag(mainContents.getRcomIdx());
             //게임 리스트
             List<GameInfoEntity> list = mainService.getMainGameList(mainContents.getRcomIdx());
             for(GameInfoEntity game : list){
-                String domain = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
                 game.setThumbNail(domain+game.getThumbNail());
             }
             body.put("resultCd",resultCd);

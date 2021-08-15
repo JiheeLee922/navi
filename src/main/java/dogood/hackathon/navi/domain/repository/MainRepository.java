@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface MainRepository extends JpaRepository<MainRecommandContentsEntity, Long> {
     @Query(
-            value = "SELECT RECOMMAND_IDX, SHOW_STRT_DTM, SHOW_END_DTM, SHOW_TITLE, SHOW_DESCRIPTION " +
+            value = "SELECT RECOMMAND_IDX, SHOW_STRT_DTM, SHOW_END_DTM, SHOW_TITLE, SHOW_DESCRIPTION , gi.THUMBNAIL_PATH " +
             "FROM main_recommand_contents mrc " +
             "INNER JOIN game_info gi on mrc.GAME_IDX = gi.GAME_IDX " +
             "WHERE :currentTime BETWEEN SHOW_STRT_DTM AND SHOW_END_DTM" , nativeQuery = true
