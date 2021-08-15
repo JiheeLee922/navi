@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -27,13 +28,19 @@ public class ImagesController {
             ,   @PathVariable String fileName
             ,   HttpServletRequest req
     ) throws IOException{
-        String rootPath = System.getProperty("user.dir");
-        String filePath = rootPath + File.separator + "images" + File.separator + prefix + File.separator + idx + File.separator + fileName;
+        String filePath = "";
         try{
-            File file = new File(filePath);
-            log.info("#### 파일 존재 확인 : {}",file.exists());
+            String rootPath = System.getProperty("user.dir");
+            filePath = rootPath + File.separator + "images" + File.separator + prefix + File.separator + idx + File.separator + fileName;
+            File file = Optional.ofNullable(new File(filePath)).orElseThrow(()->new Exception("/error/404.jpg"));
+
+            log.info("#### 파일 확인 : {}",file.exists());
+
+            if(!file.exists()){
+               filePath = "/error/404.jpg";
+            }
         }catch(Exception e){
-            log.error(e.getMessage());
+            filePath = e.getMessage();
         }
 
         InputStream in = new FileInputStream(filePath);
