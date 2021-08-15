@@ -8,9 +8,15 @@ import dogood.hackathon.navi.domain.repository.MainRepository;
 import dogood.hackathon.navi.domain.repository.ScreenShotRepository;
 import dogood.hackathon.navi.dto.ScreenShotDto;
 import lombok.AllArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.Transient;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +42,7 @@ public class MainService {
     }
 
     @Transactional
-    public List<GameInfoEntity> getMainGameList(Long rcomIdx){
+    public List<GameInfoEntity> getMainGameList(Long rcomIdx) throws Exception{
         return gameInfoRepository.getMainGameList(rcomIdx);
     }
     
